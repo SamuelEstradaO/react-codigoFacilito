@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-//const App = () => <h1>Hola mundo</h1>
+const Saludar = ({ nombre, idioma = 'en' }) => {
+  const saludo = idioma === 'es' ? 'Hola' : 'Hello';
+  return (
+    <p>
+      {saludo} {nombre}
+    </p>
+  );
+};
 
-class App extends Component {
-  render() {
-    return <h1>Hola mundo</h1>;
-  }
-}
+// Saludar.defaultProps ={
+//   idioma: 'en'
+// }
 
+const App = () => {
+  return (
+    <div>
+      <Saludar nombre="Samuel"/>
+    </div>
+  );
+};
 render(<App />, document.getElementById('root'));
