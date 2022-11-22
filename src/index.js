@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { render } from 'react-dom';
 
 // const Saludo = ({ nombre, idioma = 'en' }) => {
@@ -36,9 +36,17 @@ import { render } from 'react-dom';
 //   idioma: 'en'
 // }
 
-const Form = () => {
+const Form = ({ showed }) => {
   let [title, setTitle] = useState('');
   let [body, setBody] = useState('');
+  const firstInput = useRef();
+  useEffect(() => {
+    //Actualizar el DOM
+    if(showed){
+      console.log(firstInput);
+      firstInput.current.focus();
+    }
+  }, [showed]);
   const sendForm = (ev) => {
     ev.preventDefault();
     fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -68,6 +76,7 @@ const Form = () => {
           id="title"
           value={title}
           onChange={(ev) => setTitle(ev.target.value)}
+          ref={firstInput}
         />
       </div>
       <div>
@@ -83,10 +92,20 @@ const Form = () => {
   );
 };
 
+const Accordion = () => {
+  const [show, setShow] = useState(false);
+  return (
+    <div>
+      <button onClick={() => setShow(!show)}>Mostrar formulario</button>
+      {show && <Form showed={show} />}
+    </div>
+  );
+};
+
 const App = () => {
   return (
     <div>
-      <Form />
+      <Accordion />
     </div>
   );
 };
