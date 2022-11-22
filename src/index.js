@@ -1,31 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render } from 'react-dom';
 
-const nombres = ['Samuel', 'Alejandro', 'Isabel', 'Yair'];
+// const Saludar = ({ nombre, idioma = 'en' }) => {
+//   const saludo = idioma === 'es' ? 'Hola' : 'Hello';
+//   return (
+//     <p>
+//       {saludo} {nombre}
+//     </p>
+//   );
+// };
 
-function getNombres() {
-  const elementosLista = [];
-  for (var i = 0; i < nombres.length; i++) {
-    elementosLista.push(<li>{nombres[i]}</li>);
-  }
-  return elementosLista;
+const Button = ( ) => {
+  const [counter, setCounter] = useState(0);
+  return (<div>
+      <p>Presionado: {counter}</p>
+      <button onClick={()=>{setCounter(counter+1)}}>Click me!</button>
+  </div>)
 }
 
-const Nombres = () => {
-  return (
-    <ul>
-      {nombres.map((nombre, index) => (
-        <li key={index}>{nombre}</li>
-      ))}
-    </ul>
-  );
-};
+// Saludar.defaultProps ={
+//   idioma: 'en'
+// }
 
 const App = () => {
   return (
-    <h1>
-      <Nombres />
-    </h1>
+    <div>
+      <Button />
+    </div>
   );
 };
 render(<App />, document.getElementById('root'));
