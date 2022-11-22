@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { render } from 'react-dom';
 
 // const Saludar = ({ nombre, idioma = 'en' }) => {
@@ -10,22 +10,43 @@ import { render } from 'react-dom';
 //   );
 // };
 
-const Button = ( ) => {
+const Button = () => {
   const [counter, setCounter] = useState(0);
-  return (<div>
-      <p>Presionado: {counter}</p>
-      <button onClick={()=>{setCounter(counter+1)}}>Click me!</button>
-  </div>)
-}
+  useEffect(() => {
+    console.log('me ejecute');
+    return () => {
+      console.log('Adiós');
+    };
+  }, []);
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setCounter(counter + 1);
+        }}
+      >
+        Click {counter}
+      </button>
+    </div>
+  );
+};
 
 // Saludar.defaultProps ={
 //   idioma: 'en'
 // }
 
 const App = () => {
+  const [showButton, setShowButton] = useState(true);
   return (
     <div>
-      <Button />
+      <button
+        onClick={() => {
+          setShowButton(false);
+        }}
+      >
+        Eliminar boton
+      </button>
+      {showButton && <Button />}
     </div>
   );
 };
